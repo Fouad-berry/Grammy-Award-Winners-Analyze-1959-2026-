@@ -89,51 +89,62 @@ elif page == "Artist Analyzer":
 
     st.header("Artist Analyzer")
 
-    artist = st.text_input("Nom de l'artiste")
+    # Liste unique des artistes (Artist + Winner)
+    artist_list = pd.Series(df['Artist'].tolist() + df['Winner'].tolist()).dropna().unique()
+    artist_list = sorted(set(artist_list))
 
+    # Saisie libre
+    import streamlit as st
+    if 'selected_artist' not in st.session_state:
+        st.session_state['selected_artist'] = ''
+
+    artist = st.text_input("Nom de l'artiste (autocomplétion)", "")
+
+    # Suggestions dynamiques
+    def normalize(s):
+        return ''.join(s.lower().split())
+
+    suggestions = []
     if artist:
-
-        def normalize(s):
-            return ''.join(s.lower().split())
-
         artist_norm = normalize(artist)
+        suggestions = [a for a in artist_list if artist_norm in normalize(a)][:5]  # max 5 suggestions
 
+    show_result = False
+    if suggestions:
+        st.markdown("Suggestions :")
+        cols = st.columns(len(suggestions))
+        for idx, s in enumerate(suggestions):
+            if cols[idx].button(s, key=f"suggestion_{s}"):
+                st.session_state['selected_artist'] = s
+                show_result = True
+    # Affiche le résultat seulement si une suggestion a été cliquée
+    if st.session_state['selected_artist']:
+        artist = st.session_state['selected_artist']
+        artist_norm = normalize(artist)
         artist_df = df[
             df['Artist'].apply(lambda x: artist_norm in normalize(str(x))) |
             df['Winner'].apply(lambda x: artist_norm in normalize(str(x)))
         ]
-
         if artist_df.empty:
-
             st.warning("Artiste non trouvé.")
-
         else:
-
             big_four = artist_df[artist_df['Award_Group'] == 'Big Four']
             genre = artist_df[artist_df['Award_Group'] == 'Genre']
-
             total = len(big_four) + len(genre)
-
             st.success(f"{artist} : {total} victoires (toutes catégories)")
-
             # IMAGE ARTISTE
             image_url = get_artist_image(artist)
-
             col1, col2 = st.columns([1,2])
-
             with col1:
                 if image_url:
                     st.image(image_url, width=250)
                 else:
                     st.info("Image non trouvée sur Wikipedia")
-
             with col2:
-
                 if not big_four.empty:
                     st.markdown("### Victoires Big Four")
                     st.write("Catégories :", ', '.join(big_four['Category'].unique()))
                     st.write("Années :", ', '.join(map(str, big_four['Year'].unique())))
-
                 if not genre.empty:
                     st.markdown("### Victoires par Genre")
                     st.write("Catégories :", ', '.join(genre['Category'].unique()))
