@@ -8,13 +8,13 @@ Projet d'analyse, visualisation et Machine Learning sur les Grammy Awards.
 dataset/           # Contient le fichier grammy_awards.csv
 python/            # Scripts d'analyse et de ML
 api/               # API FastAPI
-frontend/          # Dashboard Next.js
+dashboard/         # Dashboard Streamlit interactif
 requirements.txt   # Dépendances Python
 ```
 
 ## Prérequis
 - Python 3.8+
-- (Optionnel) Node.js pour le frontend
+
 
 ## Installation rapide
 
@@ -52,9 +52,14 @@ python python/analysis.py
 uvicorn api.main:app --reload
 ```
 
-7. **Frontend (optionnel)**
 
-Voir le dossier `frontend/` pour le dashboard Next.js.
+7. **Dashboard interactif (Streamlit)**
+
+Lancer le dashboard interactif :
+
+```bash
+streamlit run dashboard/streamlit_app.py
+```
 
 ---
 
@@ -63,7 +68,7 @@ Voir le dossier `frontend/` pour le dashboard Next.js.
 - Analyse par artiste, genre, décennie
 - Machine Learning (clustering, prédiction)
 - API REST pour exposer les analyses
-- Dashboard interactif
+- Dashboard interactif (Streamlit)
 
 ---
 
