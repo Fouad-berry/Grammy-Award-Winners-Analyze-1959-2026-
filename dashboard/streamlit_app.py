@@ -53,7 +53,7 @@ def get_artist_image(artist):
 
     return None
 
-st.title("Grammy Awards Dashboard (1959–2026) – Toutes catégories")
+st.title("Grammy Awards Dashboard (1959–2026) – Big Four & Pop uniquement")
 
 # -------------------------
 # SIDEBAR
@@ -80,18 +80,6 @@ if page == "Dashboard général":
 
     top_artists = df['Artist'].value_counts().head(10)
     st.bar_chart(top_artists)
-
-
-# -------------------------
-# TIMELINE
-# -------------------------
-elif page == "Timeline":
-
-    st.header("Timeline interactive des Grammy Awards")
-
-    timeline = df.groupby('Year').size()
-
-    st.line_chart(timeline)
 
 
 # -------------------------
