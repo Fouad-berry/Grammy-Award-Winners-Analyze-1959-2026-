@@ -2,6 +2,8 @@
 
 Projet d'analyse, visualisation et Machine Learning sur les Grammy Awards.
 
+**Remarque :** Ce projet analyse uniquement les catégories majeures (Big Four) et les catégories pop (ex : Best Pop Vocal Album), pas toutes les catégories Grammy existantes.
+
 ## Structure du projet
 
 ```
@@ -69,6 +71,7 @@ streamlit run dashboard/streamlit_app.py
 - Machine Learning (clustering, prédiction)
 - API REST pour exposer les analyses
 - Dashboard interactif (Streamlit)
+- Analyse limitée aux catégories Big Four et Pop
 
 ---
 
