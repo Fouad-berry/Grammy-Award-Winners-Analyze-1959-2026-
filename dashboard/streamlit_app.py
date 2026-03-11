@@ -61,7 +61,7 @@ st.title("Grammy Awards Dashboard (1959–2026) – Big Four & Pop uniquement")
 st.sidebar.header("Navigation")
 page = st.sidebar.radio(
     "Aller à :",
-    ["Dashboard général", "Timeline", "Artist Analyzer"]
+    ["Dashboard général", "Artist Analyzer"]
 )
 
 # -------------------------
