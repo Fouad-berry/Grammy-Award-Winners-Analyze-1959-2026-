@@ -4,3 +4,4 @@ seaborn
 fastapi
 uvicorn
 scikit-learn
+streamlit
