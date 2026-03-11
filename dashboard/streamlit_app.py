@@ -1,3 +1,4 @@
+import requests
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -9,7 +10,7 @@ def load_data():
     return pd.read_csv('../dataset/grammy_awards.csv')
 
 df = load_data()
-st.title("Grammy Awards Dashboard (1959–2026) – Big Four uniquement")
+st.title("Grammy Awards Dashboard (1959–2026) – Toutes catégories")
 
 # Sidebar
 st.sidebar.header("Navigation")
@@ -32,11 +33,26 @@ elif page == "Artist Analyzer":
     st.header("Artist Analyzer")
     artist = st.text_input("Nom de l'artiste")
     if artist:
-        artist_df = df[df['Artist'].str.lower() == artist.lower()]
+        # Recherche insensible à la casse et aux espaces, et accepte le nom comme sous-chaîne dans Artist OU Winner
+        def normalize(s):
+            return ''.join(s.lower().split())
+        artist_norm = normalize(artist)
+        artist_df = df[
+            df['Artist'].apply(lambda x: artist_norm in normalize(str(x))) |
+            df['Winner'].apply(lambda x: artist_norm in normalize(str(x)))
+        ]
         if artist_df.empty:
             st.warning("Artiste non trouvé.")
         else:
-            st.success(f"{artist} : {len(artist_df)} victoires")
-            st.write("Catégories :", ', '.join(artist_df['Category'].unique()))
-            st.write("Années :", ', '.join(map(str, artist_df['Year'].unique())))
-
+            big_four = artist_df[artist_df['Award_Group'] == 'Big Four']
+            genre = artist_df[artist_df['Award_Group'] == 'Genre']
+            total = len(big_four) + len(genre)
+            st.success(f"{artist} : {total} victoires (toutes catégories)")
+            if not big_four.empty:
+                st.markdown("**Victoires Big Four :**")
+                st.write("Catégories :", ', '.join(big_four['Category'].unique()))
+                st.write("Années :", ', '.join(map(str, big_four['Year'].unique())))
+            if not genre.empty:
+                st.markdown("**Victoires par Genre :**")
+                st.write("Catégories :", ', '.join(genre['Category'].unique()))
+                st.write("Années :", ', '.join(map(str, genre['Year'].unique())))

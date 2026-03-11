@@ -73,8 +73,4 @@ streamlit run dashboard/streamlit_app.py
 ---
 
 ## Auteurs
-- Fouad Berry
-
----
-
-## TODO
+- Fouad MOUTAIROU

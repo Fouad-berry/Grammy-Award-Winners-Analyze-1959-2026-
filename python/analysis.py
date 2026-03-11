@@ -8,6 +8,7 @@ import seaborn as sns
 # Charger le dataset
 def load_data(path='../dataset/grammy_awards.csv'):
     df = pd.read_csv(path)
+    # Ne filtre plus sur Award_Group, on garde tout (Big Four + Genre)
     return df
 
 def main():

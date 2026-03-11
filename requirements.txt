@@ -5,3 +5,4 @@ fastapi
 uvicorn
 scikit-learn
 streamlit
+requests
