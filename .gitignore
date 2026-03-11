@@ -1,0 +1,32 @@
+# Environnement virtuel Python
+venv/
+
+# Fichiers temporaires Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Données temporaires
+*.csv~
+*.tmp
+
+# Dossier de données (à garder le CSV original, mais ignorer les fichiers temporaires)
+dataset/*.tmp
+dataset/*.bak
+
+# Node.js (frontend)
+frontend/node_modules/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Autres
+.env
