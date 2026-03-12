@@ -65,6 +65,26 @@ streamlit run dashboard/streamlit_app.py
 
 ---
 
+## Déploiement
+
+### Déployer sur Streamlit Community Cloud
+
+1. Crée un compte sur https://streamlit.io/cloud
+2. Connecte ton repo GitHub
+3. Clique sur "New app" et choisis ce projet
+4. Renseigne le chemin du script : `dashboard/streamlit_app.py`
+5. Clique sur "Deploy" : ton dashboard sera accessible en ligne gratuitement
+
+### Déployer sur Render
+
+1. Crée un compte sur https://render.com
+2. Crée un nouveau service "Web Service"
+3. Connecte ton repo GitHub
+4. Pour le champ "Start Command", mets : `streamlit run dashboard/streamlit_app.py --server.port $PORT --server.address 0.0.0.0`
+5. Choisis Python 3.8+ et assure-toi que `requirements.txt` est bien présent
+6. Clique sur "Create Web Service" : ton dashboard sera déployé publiquement
+
+---
 ## Fonctionnalités prévues
 - Statistiques et visualisations sur les Grammy Awards
 - Analyse par artiste, genre, décennie
