@@ -8,9 +8,12 @@ st.set_page_config(page_title="Grammy Awards Dashboard", layout="wide")
 # -------------------------
 # LOAD DATA
 # -------------------------
+import os
 @st.cache_data
 def load_data():
-    return pd.read_csv('../dataset/grammy_awards.csv')
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csv_path = os.path.join(base_dir, "dataset", "grammy_awards.csv")
+    return pd.read_csv(csv_path)
 
 df = load_data()
 
