@@ -6,8 +6,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Charger le dataset
-def load_data(path='../dataset/grammy_awards.csv'):
-    df = pd.read_csv(path)
+import os
+def load_data():
+    # Chemin absolu basé sur l'emplacement de ce script
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csv_path = os.path.join(base_dir, "dataset", "grammy_awards.csv")
+    df = pd.read_csv(csv_path)
     return df
 
 def main():
